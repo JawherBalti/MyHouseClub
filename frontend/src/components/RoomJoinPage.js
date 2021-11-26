@@ -45,13 +45,20 @@ export default class RoomJoinPage extends Component {
         </Grid>
         <Grid item xs={12} align="center">
           <TextField
+            required={true}
             error={this.state.error}
             label="Code"
-            placeholder="Enter a Room Code"
+            placeholder="Enter A Room Code"
             value={this.state.roomCode}
             helperText={this.state.error}
             variant="outlined"
             onChange={this.handleTextFieldChange}
+            focused
+            inputProps={{
+              style: {
+                color: '#fff',
+              },
+            }}
           />
         </Grid>
         <Grid item xs={12} align="center">

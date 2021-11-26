@@ -4,7 +4,6 @@ import {
   Collapse,
   Grid,
   Button,
-  Typography,
   Radio,
   RadioGroup,
   FormControlLabel,
@@ -12,6 +11,28 @@ import {
   FormHelperText,
   TextField,
 } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import { blueGrey } from '@material-ui/core/colors'
+
+const ControlRadio = withStyles({
+  root: {
+    color: blueGrey[400],
+    '&$checked': {
+      color: "#3f51b5",
+    },
+  },
+  checked: {},
+})((props) => <Radio color="default" {...props} />)
+
+const NoControlRadio = withStyles({
+  root: {
+    color: blueGrey[400],
+    '&$checked': {
+      color: "#f50057",
+    },
+  },
+  checked: {},
+})((props) => <Radio color="default" {...props} />)
 
 export default class CreateRoomPage extends Component {
   static defaultProps = {
@@ -85,20 +106,20 @@ export default class CreateRoomPage extends Component {
     return (
       <Grid className="center" container spacing={1}>
         <Grid item xs={12} align="center">
-          <Collapse in={this.state.error != "" || this.state.success != ""}>
+          <Collapse style={{color:"#fff"}} in={this.state.error != '' || this.state.success != ''}>
             {this.state.success != '' ? this.state.success : this.state.error}
           </Collapse>
         </Grid>
         <Grid item xs={12} align="center">
-          <h4>
-            {title}
-          </h4>
+          <h4>{title}</h4>
         </Grid>
 
         <Grid item xs={12} align="center">
           <FormControl component="fieldset">
             <FormHelperText component="div">
-              <div align="center">Guest Control of Playback State</div>
+              <div style={{ color: '#fff' }} align="center">
+                Guest Control of Playback State
+              </div>
             </FormHelperText>
             <RadioGroup
               row
@@ -106,14 +127,17 @@ export default class CreateRoomPage extends Component {
               onChange={this.handleGuestCanPauseChange}
             >
               <FormControlLabel
+                style={{ color: '#fff' }}
                 value="true"
-                control={<Radio color="primary" />}
+                control={<ControlRadio />}
                 label="Play/Pause"
                 labelPlacement="bottom"
               />
+
               <FormControlLabel
+                style={{ color: '#fff' }}
                 value="false"
-                control={<Radio color="secondary" />}
+                control={<NoControlRadio />}
                 label="No Control"
                 labelPlacement="bottom"
               />
@@ -128,10 +152,19 @@ export default class CreateRoomPage extends Component {
               required={true}
               type="number"
               defaultValue={this.state.votesToSkip}
-              inputProps={{ min: 1, style: { textAlign: 'center' } }}
+              inputProps={{
+                min: 2,
+                style: {
+                  textAlign: 'center',
+                  color: '#fff',
+                  borderBottom: '1px solid #fff',
+                },
+              }}
             />
             <FormHelperText component="div">
-              <div align="center">Votes Required To Skip Song</div>
+              <div style={{ color: '#fff' }} align="center">
+                Votes Required To Skip Song
+              </div>
             </FormHelperText>
           </FormControl>
         </Grid>
@@ -152,7 +185,7 @@ export default class CreateRoomPage extends Component {
           <>
             <Grid item xs={12} align="center">
               <Button
-                color="secondary"
+                color="primary"
                 variant="contained"
                 onClick={this.handleRoomButtonPressed}
               >
@@ -162,7 +195,7 @@ export default class CreateRoomPage extends Component {
 
             <Grid item xs={12} align="center">
               <Button
-                color="primary"
+                color="secondary"
                 variant="contained"
                 to="/"
                 component={Link}

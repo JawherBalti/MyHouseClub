@@ -18,11 +18,13 @@ export default class Room extends Component {
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.getCurrentSong, 1000)
+    this.interval = setInterval(this.getCurrentSong, 2000)
+    this.interval2 = setInterval(this.getRoomDetails, 1000)
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
+    clearInterval(this.interval2)
   }
 
   getRoomDetails = () => {
@@ -89,6 +91,15 @@ export default class Room extends Component {
       .then((data) => this.setState({ song: data }))
   }
 
+  copyCode = () => {
+    /* Get the text field */
+    var copyText = document.getElementById("my-input").innerHTML
+     /* Copy the text inside the text field */
+    navigator.clipboard.writeText(copyText);
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText);
+  }
+
   render() {
     if (this.state.showSettings) {
       return (
@@ -102,7 +113,12 @@ export default class Room extends Component {
               updateCallback={this.getRoomDetails}
             />
           </Grid>
-          <Grid item xs={12} align="center">
+          <Grid
+            style={{ marginTop: '31rem', marginLeft: '-0.2rem' }}
+            item
+            xs={12}
+            align="center"
+          >
             <Button
               variant="contained"
               color="secondary"
@@ -117,25 +133,28 @@ export default class Room extends Component {
       return (
         <Grid className="center" container spacing={1}>
           <Grid item xs={12} align="center">
-            <h4>
-              Room Code: {this.props.match.params.roomCode}
-            </h4>
+            <h4>Room Code: <span onClick={this.copyCode} className="room-code" id="my-input" >{this.props.match.params.roomCode}</span></h4>
+            {this.state.isHost ? (
+              <h5 className="notice">
+                Go To <a href="https://www.spotify.com">Spotify.com</a> And
+                Select Your Track
+              </h5>
+            ) : null}
+            <h5 className="notice">
+              A Premium Spotify Account Is Required To Be Able To Pause/Play or
+              Skip Tracks
+            </h5>
           </Grid>
 
           <Grid item xs={12} align="center">
-            <MusicPlayer song={this.state.song} />
+            <MusicPlayer
+              host={this.state.isHost}
+              canPause={this.state.guestCanPause}
+              song={this.state.song}
+            />
           </Grid>
 
           {/* {this.state.isHost ? this.renderSettingsButton() : null} */}
-          <Grid item xs={12} align="center">
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={this.leaveButtonPressed}
-            >
-              Leave Room
-            </Button>
-          </Grid>
           {this.state.isHost && (
             <Grid item xs={12} align="center">
               <Button
@@ -147,6 +166,16 @@ export default class Room extends Component {
               </Button>
             </Grid>
           )}
+
+          <Grid item xs={12} align="center">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.leaveButtonPressed}
+            >
+              Leave Room
+            </Button>
+          </Grid>
         </Grid>
       )
     }

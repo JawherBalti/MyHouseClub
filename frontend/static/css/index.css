@@ -1,19 +1,19 @@
-html, body {
+html,
+body {
   width: 100%;
-  height:100%;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-    background: linear-gradient(-45deg, #c7c7c7, #547e8d);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+  background-image: url('../images/bg.jpg');
+  background-size: cover;
 }
 
 h3 {
-  color: #fff;
-  -webkit-text-stroke: 2px #191414;
+  color: #000;
+  -webkit-text-stroke: 3px #fff;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
   font-size: 3rem;
@@ -21,10 +21,25 @@ h3 {
 }
 
 h4 {
-  color: #191414;
+  color: #fff;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+h5 {
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+h6 {
+  color: #fff;
+}
+
+.notice {
+  color: #fff;
+  font-size: 1rem;
 }
 
 #main {
@@ -45,4 +60,34 @@ h4 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.player {
+  background-image: linear-gradient(-45deg, #89d4cf, #6e45e1, #e73c7e);
+  width: 50%;
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  border: 2px solid #fff;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.room-code {
+  color: #f50057;
+}
+
+.room-code:hover {
+  color: #ca0147;
+  cursor: pointer;
 }
